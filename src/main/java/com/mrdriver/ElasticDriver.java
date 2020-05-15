@@ -36,8 +36,8 @@ public class ElasticDriver implements Tool{
 	    conf.set("es.nodes", "localhost:9200");
 	    //conf.set("es.net.http.auth.user", "<your_username>");
 	    //conf.set("es.net.http.auth.pass", "<your_password>");
-	    //conf.set("es.nodes.wan.only", "true");
-	    conf.set("es.resource", "company/employees");
+	    conf.set("es.nodes.wan.only", "true");
+	    conf.set("es.resource", "company");
 	    conf.set("es.input.json", "yes");
 
 	    Job job = Job.getInstance(conf);
@@ -47,7 +47,7 @@ public class ElasticDriver implements Tool{
 	    job.setMapOutputValueClass(Text.class);
 	    job.setJarByClass(ElasticDriver.class);
 	    job.setMapperClass(ElasticMapper.class);
-
+	    
 	    FileInputFormat.setInputPaths(job, new Path(otherArgs[0]));
 
 	    return job.waitForCompletion(true) ? 0 : 1;
